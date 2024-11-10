@@ -5,12 +5,13 @@ import {
   getProduct,
   postProduct,
 } from "../controller/productcontroller.js";
+import { verifyRole } from "../midleware/auth.js";
 
 const productroute = express.Router();
 
-productroute.get("/comment", getProduct);
-productroute.patch("/comment", editProduct);
-productroute.post("/comment", postProduct);
-productroute.delete("/comment", deleteProduct);
+productroute.get("/product", verifyRole, getProduct);
+productroute.patch("/product/:uuid", verifyRole, editProduct);
+productroute.post("/product", verifyRole, postProduct);
+productroute.delete("/product/:uuid", verifyRole, deleteProduct);
 
 export default productroute;

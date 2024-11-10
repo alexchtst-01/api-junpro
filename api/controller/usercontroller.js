@@ -2,8 +2,15 @@ import userModel from "../model/usermodel.js";
 
 export const createUser = async (req, res) => {
   const data = req.body;
-  console.log(data);
+  // console.log(data);
   try {
+    const existuser = await userModel.findOne({
+      where: {
+        username: req.body.username,
+      },
+    });
+    if (existuser)
+      return res.status(200).json({ mg: "maaf username sudah ada" });
     const usercreated = await userModel.create(data);
     res.status(200).json(usercreated);
   } catch (error) {
@@ -36,9 +43,8 @@ export const getUserbyUUID = async (req, res) => {
   }
 };
 
+export const postUser = async (req, res) => {};
 
-export const postUser = async (req, res) => {}
+export const editUser = async (req, res) => {};
 
-export const editUser = async (req, res) => {}
-
-export const deleteUser = async (req, res) => {}
+export const deleteUser = async (req, res) => {};

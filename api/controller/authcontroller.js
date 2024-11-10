@@ -7,7 +7,7 @@ export const Login = async (req, res) => {
         username: req.body.username,
       },
     });
-    console.log(user.userId);
+    // console.log(user.userId);
     if (!user) return res.status(404).json({ msg: "user tidak ditemukan" });
     // ga usah ada hash hash
     const pwd = user.password;
@@ -19,6 +19,7 @@ export const Login = async (req, res) => {
     const username = user.username;
     req.session.userId = user.userId;
     return res.status(200).json({ id, uuid, username, role });
+    // return res.status(200).json(user);
   } catch (error) {
     res.status(500).json({ msg: `terjadi error ${error}` });
   }
