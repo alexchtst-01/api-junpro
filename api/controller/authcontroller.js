@@ -18,6 +18,7 @@ export const Login = async (req, res) => {
     const role = user.role;
     const username = user.username;
     req.session.userId = user.userId;
+    console.log(user.userId);
     return res.status(200).json({ id, uuid, username, role });
     // return res.status(200).json(user);
   } catch (error) {

@@ -5,12 +5,13 @@ import {
   getPost,
   postPost,
 } from "../controller/postcontroller.js";
+import { verifyRole } from "../midleware/auth.js";
 
 const postroute = express.Router();
 
-postroute.get("/post", getPost);
-postroute.patch("/post", editPost);
-postroute.post("/post", postPost);
-postroute.delete("/post", deletePost);
+postroute.get("/post", verifyRole, getPost);
+postroute.post("/post", verifyRole, postPost);
+postroute.patch("/post/:uuid", verifyRole, editPost);
+postroute.delete("/post/:uuid", verifyRole, deletePost);
 
 export default postroute;
