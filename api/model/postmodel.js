@@ -8,6 +8,7 @@ const postModel = db.define("post_table", {
   postId: {
     type: DataTypes.STRING,
     defaultValue: DataTypes.UUIDV4,
+    primaryKey: true,
     allowNull: false,
     validate: {
       notEmpty: true,
@@ -28,10 +29,8 @@ const postModel = db.define("post_table", {
       notEmpty: true,
     },
   },
-// nanti yang ke track disni user id yang secara default dibuat sama postgress
-// makanya tipenya integer
   userId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
     validate: {
       notEmpty: true,
@@ -40,7 +39,6 @@ const postModel = db.define("post_table", {
 }, {freezeTableName: true, timestamps: true});
 
 userModel.hasMany(postModel);
-// nanti yang ke track disni user id yang secara default dibuat sama postgress
 postModel.belongsTo(userModel, { foreignKey: "userId" });
 
 export default postModel;

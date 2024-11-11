@@ -12,8 +12,7 @@ export const verifyRole = async (req, res, next) => {
   });
 
   if (!user) return res.status(404).json({ msg: "user tidak ditemukan" });
-  req.userId = user.id;
-  // req.userId = user.userId;
+  req.userId = user.userId;
   req.role = user.role;
   next();
 };

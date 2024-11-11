@@ -1,11 +1,15 @@
 import express from "express";
-import { createUser, getUser, getUserbyUUID } from "../controller/usercontroller.js";
+import {
+  getUser,
+  getUserbyUUID,
+  postUser,
+} from "../controller/usercontroller.js";
 import { adminOnly } from "../midleware/auth.js";
 
 const userroute = express.Router();
 
 userroute.get("/user", adminOnly, getUser);
 userroute.get("/user/:uuid", adminOnly, getUserbyUUID);
-userroute.post("/user", createUser);
+userroute.post("/user", postUser);
 
 export default userroute;

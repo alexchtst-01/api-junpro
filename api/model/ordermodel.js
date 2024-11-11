@@ -7,6 +7,7 @@ const { DataTypes } = Sequelize;
 
 const orderModel = db.define("order_table", {
   orderId: {
+    primaryKey: true,
     type: DataTypes.STRING,
     defaultValue: DataTypes.UUIDV4,
     allowNull: false,
@@ -35,20 +36,16 @@ const orderModel = db.define("order_table", {
       notEmpty: true,
     },
   },
-  // nanti yang ke track disni product id yang secara default dibuat sama postgress
-  // makanya tipenya integer
   productId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
     validate: {
       notEmpty: true,
     },
   },
 
-  // nanti yang ke track disni user id yang secara default dibuat sama postgress
-  // makanya tipenya integer
   userrecievedId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
     validate: {
       notEmpty: true,

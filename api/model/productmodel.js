@@ -6,6 +6,7 @@ const { DataTypes } = Sequelize;
 
 const productModel = db.define("product_table", {
   productId: {
+    primaryKey: true,
     type: DataTypes.STRING,
     defaultValue: DataTypes.UUIDV4,
     allowNull: false,
@@ -28,7 +29,7 @@ const productModel = db.define("product_table", {
     },
   },
   userownerId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
     validate: {
       notEmpty: true,

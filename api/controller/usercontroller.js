@@ -1,8 +1,7 @@
 import userModel from "../model/usermodel.js";
 
-export const createUser = async (req, res) => {
+export const postUser = async (req, res) => {
   const data = req.body;
-  // console.log(data);
   try {
     const existuser = await userModel.findOne({
       where: {
@@ -43,7 +42,6 @@ export const getUserbyUUID = async (req, res) => {
   }
 };
 
-export const postUser = async (req, res) => {};
 
 export const editUser = async (req, res) => {};
 

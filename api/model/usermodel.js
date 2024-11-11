@@ -8,6 +8,7 @@ const userModel = db.define(
   {
     userId: {
       type: DataTypes.STRING,
+      primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       validate: {

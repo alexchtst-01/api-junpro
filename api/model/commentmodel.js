@@ -8,6 +8,7 @@ const { DataTypes } = Sequelize;
 
 const commentModel = db.define("comment_table", {
   comentId: {
+    primaryKey: true,
     type: DataTypes.STRING,
     defaultValue: DataTypes.UUIDV4,
     allowNull: false,
@@ -23,20 +24,16 @@ const commentModel = db.define("comment_table", {
       notEmpty: true,
     },
   },
-  // nanti yang ke track disni user id yang secara default dibuat sama postgress
-  // makanya tipenya integer
   senderId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
     validate: {
       notEmpty: true,
     },
   },
 
-  // nanti yang ke track disni post id yang secara default dibuat sama postgress
-  // makanya tipenya integer
   postId: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
     validate: {
       notEmpty: true,

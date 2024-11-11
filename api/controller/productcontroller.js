@@ -7,11 +7,11 @@ export const getProduct = async (req, res) => {
   try {
     if (req.role === "admin") {
       const product = await productModel.findAll({
-        attributes: ["id", "name", "price"],
+        attributes: ["productId", "name", "price"],
         include: [
           {
             model: userModel,
-            attributes: ["username"],
+            attributes: ["userId", "username"],
           },
         ],
       });
@@ -21,11 +21,11 @@ export const getProduct = async (req, res) => {
         where: {
           userownerId: req.userId,
         },
-        attributes: ["id", "name", "price"],
+        attributes: ["productId", "name", "price"],
         include: [
           {
             model: userModel,
-            attributes: ["username"],
+            attributes: ["userId", "username"],
           },
         ],
       });
@@ -68,7 +68,7 @@ export const editProduct = async (req, res) => {
         { name, price },
         {
           where: {
-            id: product.id,
+            productId: product.productId,
           },
         }
       );
@@ -82,7 +82,10 @@ export const editProduct = async (req, res) => {
         { name, price },
         {
           where: {
-            [Op.and]: [{ id: product.id }, { userownerId: req.userId }],
+            [Op.and]: [
+              { productId: product.productId },
+              { userownerId: req.userId },
+            ],
           },
         }
       );
@@ -96,17 +99,23 @@ export const editProduct = async (req, res) => {
 // dah aman
 export const deleteProduct = async (req, res) => {
   try {
+    // Locate the product
     const product = await productModel.findOne({
       where: {
         productId: req.params.uuid,
       },
     });
-    if (!product)
-      return res.status(404).json({ msg: "product tidak ditemukan" });
+
+    if (!product) {
+      console.log("Product not found.");
+      return res.status(404).json({ msg: "Product tidak ditemukan" });
+    }
+
+    // Check if user is admin
     if (req.role === "admin") {
       await productModel.destroy({
         where: {
-          [Op.and]: [{ id: product.id }, { userownerId: req.userId }],
+          productId: product.productId,
         },
       });
       res.status(200).json({ msg: "data berhasil dihapus" });
@@ -117,7 +126,7 @@ export const deleteProduct = async (req, res) => {
           .json({ msg: "anda tidak boleh mengakses yang bukan product anda" });
       await productModel.destroy({
         where: {
-          productId: req.params.uuid,
+          productId: product.productId,
         },
       });
       res.status(200).json({ msg: "data berhasil dihapus" });
